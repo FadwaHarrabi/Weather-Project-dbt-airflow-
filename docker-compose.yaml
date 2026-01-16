@@ -9,4 +9,5 @@ services:
       POSTGRES_PASSWORD: system
       POSTGRES_DB: weather_data
     volumes:
-      - ./postgres/data:/var/lib/postgresql/data
+      - ./postgres:/var/lib/postgresql
+
