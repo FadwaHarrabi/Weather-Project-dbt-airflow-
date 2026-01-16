@@ -1,7 +1,7 @@
 services:
   db:
     container_name: postgres_db
-    image: postgres:18
+    image: postgres:16
     ports:
       - "5000:5432"
     environment:
@@ -9,5 +9,27 @@ services:
       POSTGRES_PASSWORD: system
       POSTGRES_DB: weather_data
     volumes:
-      - ./postgres:/var/lib/postgresql
+      - ./postgres/data:/var/lib/postgresql/data
+      - ./postgres/airflow_init.sql:/docker-entrypoint-initdb.d/airflow_init.sql
+    networks:
+      - my_network
+    
+  af:
+    container_name: airflow_container
+    image: apache/airflow:latest
+    ports:
+      - 8087:8080
+    environment:
+      AIRFLOW_DATABASE_SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@db:5432/airflow_db
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+    depends_on:
+      - db
+    networks:
+      - my_network
+    command: standalone 
+networks:
+  my_network:
+    driver: bridge
+    
 
