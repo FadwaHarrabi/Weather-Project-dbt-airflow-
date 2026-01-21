@@ -2,17 +2,17 @@ import requests
 
 api_key = "d97d08b9b934431cf0bac548cb9f794f"
 api_url=f"https://api.weatherstack.com/current?access_key={api_key}&query=Sfax"
-# def get_weather_data():
-#     try :
-#         response = requests.get(api_url)
-#         response.raise_for_status()
-#         return response.json()
-#     except requests.exceptions.RequestException as e:
-#         print(f"Error fetching weather data: {e}")
-#         raise
-# if __name__ == "__main__":
-#     weather_data = get_weather_data()
-#     print(weather_data)
+def get_weather_data():
+    try :
+        response = requests.get(api_url)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching weather data: {e}")
+        raise
+if __name__ == "__main__":
+    weather_data = get_weather_data()
+    print(weather_data)
 
 
 def moch_fetch_data():
