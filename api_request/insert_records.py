@@ -1,12 +1,12 @@
-from api_request import moch_fetch_data
+from api_request.api_request import moch_fetch_data,get_weather_data
 import psycopg2
 
 def connect_to_db():
     print("connecting to postressql database ...")
     try:
         conn=psycopg2.connect(
-            host="localhost",
-            port="5000",
+            host="db",
+            port="5432",
             database="weather_data", 
             user="postgres", 
             password="system")
@@ -60,7 +60,8 @@ def insert_data(conn,data):
         raise
 def main():
     try:
-        data=moch_fetch_data()
+        # data=moch_fetch_data()
+        data=get_weather_data()
         conn=connect_to_db()
         create_table(conn)
         insert_data(conn,data)
